@@ -43,11 +43,9 @@ class Mahasiswa extends RestController
         $data = array(
             'npm' => $this->post('npm'),
             'nama' => $this->post('nama'),
-            'jenis_kelamin' => $this->post('jenis_kelamin'),
+            'jk' => $this->post('jk'),
             'alamat' => $this->post('alamat'),
-            'agama' => $this->post('agama'),
-            'no_hp' => $this->post('no_hp'),
-            'email' => $this->post('email')
+            'tgl_lahir' => $this->post('tgl_lahir')
         );
         $duplikasi = $this->Mahasiswa_model->get_mahasiswa_data($data['npm']);
         if (
@@ -134,11 +132,10 @@ class Mahasiswa extends RestController
         $npm = $this->put('npm');
         $data = array(
             'nama' => $this->put('nama'),
-            'jenis_kelamin' => $this->put('jenis_kelamin'),
+            'jk' => $this->put('jk'),
             'alamat' => $this->put('alamat'),
-            'agama' => $this->put('agama'),
-            'no_hp' => $this->put('no_hp'),
-            'email' => $this->put('email')
+            'tgl_lahir' => $this->put('tgl_lahir')
+
         );
         //Jika field npm tidak diisi
         if ($npm == NULL) {
