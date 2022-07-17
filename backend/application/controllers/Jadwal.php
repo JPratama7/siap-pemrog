@@ -7,18 +7,18 @@ require APPPATH . 'libraries/RestController.php';
 
 use chriskacerguis\RestServer\RestController;
 
-class Dosen extends RestController
+class Jadwal extends RestController
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Dosen_model');
-        $this->methods['dosen_get']['limit'] = 10;
+        $this->load->model('Jadwal_model');
+        $this->methods['jadwal_get']['limit'] = 10;
     }
-    function dosen_get()
+    function jadwal_get()
     {
 
-        $data = $this->Dosen_model->get_dosen($this->get('id_dosen'));
+        $data = $this->Jadwal_model->get_jadwal($this->get('id_jadwal'));
         if (empty($data)) {
             return $this->response(
                 array(
@@ -39,16 +39,18 @@ class Dosen extends RestController
         );
     }
 
-    function dosen_post()
+    function jadwal_post()
     {
-        $data = array(
+		$id_jadwal = $this->post('id_jadwal');
+		$data = array(
+            'id_jadwal' => $id_jadwal,
+            'id_kelas' => $this->post('id_kelas'),
             'id_dosen' => $this->post('id_dosen'),
-            'nama' => $this->post('nama'),
-            'tgl_lahir' => $this->post('tgl_lahir'),
-			'alamat' => $this->post('alamat'),
-			'jk' => $this->post('jenis_kelamin'),
+			'tanggal' => $this->post('tanggal'),
+			'mulai' => $this->post('mulai'),
+			'selesai' => $this->post('selesai'),
         );
-        $duplikasi = $this->Mahasiswa_model->get_mahasiswa_data($data['npm']);
+        $duplikasi = $this->Mahasiswa_model->get_mahasiswa_data($id_jadwal);
         if (
 			array_search("", $data)
         ) {
@@ -69,7 +71,7 @@ class Dosen extends RestController
                 ],
                 RestController::HTTP_NOT_ACCEPTABLE
             );
-        } elseif ($this->Dosen_model->insert_dosen($data) > 0) {
+        } elseif ($this->jadwal_model->insert_jadwal($data) > 0) {
             return $this->response(
                 [
                     'status' => true,
@@ -90,11 +92,11 @@ class Dosen extends RestController
         }
     }
 
-    function dosen_delete()
+    function jadwal_delete()
     {
-        $id_dosen = $this->delete('id_dosen');
+        $id_jadwal = $this->delete('id_jadwal');
         //Jika field npm tidak diisi
-        if ($id_dosen == NULL) {
+        if ($id_jadwal == NULL) {
             return $this->response(
                 [
                     'status' => false,
@@ -103,12 +105,12 @@ class Dosen extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Dosen_model->update_dosen($id_dosen) > 0) {
+        } elseif ($this->jadwal_model->update_jadwal($id_jadwal) > 0) {
             return $this->response(
                 [
                     'status' => true,
                     'response_code' => RestController::HTTP_OK,
-                    'message' => 'Data Dosen Dengan ID ' . $id_dosen . ' Berhasil Dihapus',
+                    'message' => 'Data jadwal Dengan ID ' . $id_jadwal . ' Berhasil Dihapus',
                 ],
                 RestController::HTTP_OK
             );
@@ -117,37 +119,39 @@ class Dosen extends RestController
                 [
                     'status' => false,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
-                    'message' => 'Data Mahasiswa Dengan NPM ' . $id_dosen . ' Tidak Ditemukan',
+                    'message' => 'Data Mahasiswa Dengan NPM ' . $id_jadwal . ' Tidak Ditemukan',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
         }
     }
 
-    function dosen_put()
+    function jadwal_put()
     {
-		$id_dosen = $this->put('id_dosen');
+		$id_jadwal = $this->put('id_jadwal');
 		$data = array(
-			'nama' => $this->put('nama'),
-			'tgl_lahir' => $this->put('tgl_lahir'),
-			'alamat' => $this->put('alamat'),
-			'jk' => $this->put('jenis_kelamin')
+			'id_jadwal' => $id_jadwal,
+			'id_kelas' => $this->put('id_kelas'),
+			'id_dosen' => $this->put('id_dosen'),
+			'tanggal' => $this->put('tanggal'),
+			'mulai' => $this->put('mulai'),
+			'selesai' => $this->put('selesai')
 		);
-        if ($id_dosen == NULL) {
+        if ($id_jadwal == NULL) {
             return $this->response(
                 [
-                    'status' => $id_dosen,
+                    'status' => $id_jadwal,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
                     'message' => 'ID Tidak Boleh Kosong',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Mahasiswa_model->updateMahasiswa($data, $id_dosen) > 0) {
+        } elseif ($this->Mahasiswa_model->updateMahasiswa($data, $id_jadwal) > 0) {
             return $this->response(
                 [
                     'status' => true,
                     'response_code' => RestController::HTTP_CREATED,
-                    'message' => 'Data Dosen Dengan ID ' . $id_dosen . ' Berhasil Diubah',
+                    'message' => 'Data jadwal Dengan ID ' . $id_jadwal . ' Berhasil Diubah',
                 ],
                 RestController::HTTP_CREATED
             );
