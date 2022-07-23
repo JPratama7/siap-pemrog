@@ -40,18 +40,18 @@ class Mahasiswa extends RestController
 
     function mhs_post()
     {
-        $data = array(
-            'npm' => $this->post('npm'),
+		$npm = $this->post('npm');
+		$data = array(
+            'npm' => $npm,
             'nama' => $this->post('nama'),
+			'id_kelas' => $this->post('id_kelas'),
             'jk' => $this->post('jk'),
             'alamat' => $this->post('alamat'),
             'tgl_lahir' => $this->post('tgl_lahir')
         );
-        $duplikasi = $this->Mahasiswa_model->get_mahasiswa_data($data['npm']);
+        $duplikasi = $this->Mahasiswa_model->get_mahasiswa_data($npm);
         if (
-            $data['npm'] == NULL || $data['nama'] == NULL || $data['jenis_kelamin']
-            == NULL || $data['alamat'] == NULL || $data['agama'] == NULL || $data['no_hp'] ==
-            NULL || $data['email'] == NULL
+			array_search("", $data)
         ) {
             return $this->response(
                 [
@@ -131,10 +131,11 @@ class Mahasiswa extends RestController
     {
         $npm = $this->put('npm');
         $data = array(
-            'nama' => $this->put('nama'),
-            'jk' => $this->put('jk'),
-            'alamat' => $this->put('alamat'),
-            'tgl_lahir' => $this->put('tgl_lahir')
+			'nama' => $this->put('nama'),
+			'id_kelas' => $this->put('id_kelas'),
+			'jk' => $this->put('jk'),
+			'alamat' => $this->put('alamat'),
+			'tgl_lahir' => $this->put('tgl_lahir')
 
         );
         //Jika field npm tidak diisi

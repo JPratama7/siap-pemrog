@@ -17,7 +17,6 @@ class Jadwal extends RestController
     }
     function jadwal_get()
     {
-
         $data = $this->Jadwal_model->get_jadwal($this->get('id_jadwal'));
         if (empty($data)) {
             return $this->response(
@@ -50,7 +49,7 @@ class Jadwal extends RestController
 			'mulai' => $this->post('mulai'),
 			'selesai' => $this->post('selesai'),
         );
-        $duplikasi = $this->Mahasiswa_model->get_mahasiswa_data($id_jadwal);
+        $duplikasi = $this->Jadwal_model->get_jadwal($id_jadwal);
         if (
 			array_search("", $data)
         ) {
@@ -71,7 +70,7 @@ class Jadwal extends RestController
                 ],
                 RestController::HTTP_NOT_ACCEPTABLE
             );
-        } elseif ($this->jadwal_model->insert_jadwal($data) > 0) {
+        } elseif ($this->Jadwal_model->insert_jadwal($data) > 0) {
             return $this->response(
                 [
                     'status' => true,
@@ -105,7 +104,7 @@ class Jadwal extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->jadwal_model->update_jadwal($id_jadwal) > 0) {
+        } elseif ($this->Jadwal_model->delete_jadwal($id_jadwal) > 0) {
             return $this->response(
                 [
                     'status' => true,
@@ -146,7 +145,7 @@ class Jadwal extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Mahasiswa_model->updateMahasiswa($data, $id_jadwal) > 0) {
+        } elseif ($this->Jadwal_model->delete_jadwal($data, $id_jadwal) > 0) {
             return $this->response(
                 [
                     'status' => true,

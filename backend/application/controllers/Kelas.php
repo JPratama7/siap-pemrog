@@ -7,18 +7,18 @@ require APPPATH . 'libraries/RestController.php';
 
 use chriskacerguis\RestServer\RestController;
 
-class Dosen extends RestController
+class Kelas extends RestController
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Dosen_model');
-        $this->methods['dosen_get']['limit'] = 10;
+        $this->load->model('Kelas_model');
+        $this->methods['kelas_get']['limit'] = 10;
     }
     function index_get()
     {
 
-        $data = $this->Dosen_model->get_dosen($this->get('id_dosen'));
+        $data = $this->Kelas_model->get_kelas($this->get('id_kelas'));
         if (empty($data)) {
             return $this->response(
                 array(
@@ -41,14 +41,14 @@ class Dosen extends RestController
 
     function index_post()
     {
-        $data = array(
-            'id_dosen' => $this->post('id_dosen'),
-            'nama' => $this->post('nama'),
-            'tgl_lahir' => $this->post('tgl_lahir'),
-			'alamat' => $this->post('alamat'),
-			'jk' => $this->post('jk'),
+		$id_kelas = $this->post('id_kelas');
+		$data = array(
+            'id_kelas' => $id_kelas,
+            'jurusan' => $this->post("jurusan"),
+            'id_wali' => $this->post("id_wali"),
+            'tahunid' => $this->post("tahunid"),
         );
-        $duplikasi = $this->Dosen_model->get_dosen($data['id_dosen']);
+        $duplikasi = $this->Kelas_model->get_kelas($id_kelas);
         if (
 			array_search("", $data)
         ) {
@@ -69,7 +69,7 @@ class Dosen extends RestController
                 ],
                 RestController::HTTP_NOT_ACCEPTABLE
             );
-        } elseif ($this->Dosen_model->insert_dosen($data) > 0) {
+        } elseif ($this->Kelas_model->insert_kelas($data) > 0) {
             return $this->response(
                 [
                     'status' => true,
@@ -92,9 +92,9 @@ class Dosen extends RestController
 
     function index_delete()
     {
-        $id_dosen = $this->delete('id_dosen');
+        $id_kelas = $this->delete('id_kelas');
         //Jika field npm tidak diisi
-        if ($id_dosen == NULL) {
+        if ($id_kelas == NULL) {
             return $this->response(
                 [
                     'status' => false,
@@ -103,12 +103,12 @@ class Dosen extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Dosen_model->delete_dosen($id_dosen) > 0) {
+        } elseif ($this->Kelas_model->delete_kelas($id_kelas) > 0) {
             return $this->response(
                 [
                     'status' => true,
                     'response_code' => RestController::HTTP_OK,
-                    'message' => 'Data Dosen Dengan ID ' . $id_dosen . ' Berhasil Dihapus',
+                    'message' => 'Data kelas Dengan ID ' . $id_kelas . ' Berhasil Dihapus',
                 ],
                 RestController::HTTP_OK
             );
@@ -117,7 +117,7 @@ class Dosen extends RestController
                 [
                     'status' => false,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
-                    'message' => 'Data Dosen Dengan ID ' . $id_dosen . ' Tidak Ditemukan',
+                    'message' => 'Data Mahasiswa Dengan NPM ' . $id_kelas . ' Tidak Ditemukan',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
@@ -126,28 +126,28 @@ class Dosen extends RestController
 
     function index_put()
     {
-		$id_dosen = $this->put('id_dosen');
+		$id_kelas = $this->put('id_kelas');
 		$data = array(
-			'nama' => $this->put('nama'),
-			'tgl_lahir' => $this->put('tgl_lahir'),
-			'alamat' => $this->put('alamat'),
-			'jk' => $this->put('jk')
+			'id_kelas' => $id_kelas,
+			'jurusan' => $this->put("jurusan"),
+			'id_wali' => $this->put("id_wali"),
+			'tahunid' => $this->put("tahunid")
 		);
-        if ($id_dosen == NULL) {
+        if ($id_kelas == NULL) {
             return $this->response(
                 [
-                    'status' => $id_dosen,
+                    'status' => $id_kelas,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
                     'message' => 'ID Tidak Boleh Kosong',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Dosen_model->update_dosen($data, $id_dosen) > 0) {
+        } elseif ($this->Kelas_model->update_kelas($data, $id_kelas) > 0) {
             return $this->response(
                 [
                     'status' => true,
                     'response_code' => RestController::HTTP_CREATED,
-                    'message' => 'Data Dosen Dengan ID ' . $id_dosen . ' Berhasil Diubah',
+                    'message' => 'Data kelas Dengan ID ' . $id_kelas . ' Berhasil Diubah',
                 ],
                 RestController::HTTP_CREATED
             );
