@@ -13,6 +13,8 @@ class Kelas_model extends CI_Model
             $this->db->where(self::_primary_key, $id_kelas);
             $this->db->limit(1);
         }
+		$this->db->join('jurusan as j', 'j.id_jurusan = kelas.jurusan');
+		$this->db->join('dosen as d', 'd.id_dosen = kelas.id_wali');
         return $this->db->get(self::_tabel)->result_array();
     }
 

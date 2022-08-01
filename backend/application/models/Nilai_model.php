@@ -13,6 +13,8 @@ class Nilai_model extends CI_Model
 			$this->db->where(self::_primary_key, $id_nilai);
 			$this->db->limit(1);
 		}
+		$this->db->join('mk', 'mk.id_mk = nilai.id_matkul');
+		$this->db->join('mahasiswa as m', 'm.npm = nilai.npm');
 		return $this->db->get(self::_tabel)->result_array();
 	}
 

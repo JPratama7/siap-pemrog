@@ -13,6 +13,7 @@ class Mahasiswa_model extends CI_Model
             $this->db->where(self::_primary_key, $npm);
             $this->db->limit(1);
         }
+		$this->db->join('kelas as k', 'k.id_kelas = mahasiswa.id_kelas');
         return $this->db->get(self::_tabel)->result_array();
     }
 
