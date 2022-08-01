@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 23, 2022 at 04:26 PM
+-- Generation Time: Aug 01, 2022 at 03:54 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -42,7 +42,7 @@ CREATE TABLE `dosen` (
 INSERT INTO `dosen` (`id_dosen`, `nama`, `tgl_lahir`, `alamat`, `jk`) VALUES
 (0, 'Adihhh2', '0000-00-00', 'Jl. Kolonel Masturi', 'p'),
 (1, 'JOSEH', '2022-07-22', 'JL. Dunia Mars', 'l'),
-(21, 'Adihhh3', '0000-00-00', 'Jl. Kolonel Masturi', 'p');
+(2993, 'Haryadi Yusuf', '0000-00-00', 'Jl. Mars', 'l');
 
 -- --------------------------------------------------------
 
@@ -58,6 +58,13 @@ CREATE TABLE `jadwal` (
   `mulai` time NOT NULL,
   `selesai` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Dumping data for table `jadwal`
+--
+
+INSERT INTO `jadwal` (`id_jadwal`, `id_kelas`, `id_dosen`, `tanggal`, `mulai`, `selesai`) VALUES
+(1223, 1, 0, '2022-08-17', '14:00:00', '11:00:00');
 
 -- --------------------------------------------------------
 
@@ -95,7 +102,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id_kelas`, `id_wali`, `jurusan`, `tahunid`) VALUES
-(1, 1, 1, 20212);
+(1, 1, 1, 20212),
+(2908, 2993, 1, 20212);
 
 -- --------------------------------------------------------
 
@@ -141,8 +149,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`npm`, `id_kelas`, `nama`, `alamat`, `jk`, `tgl_lahir`) VALUES
-(1, 1, 'JOSEH2', 'Jl. Kolonel Masturi', 'l', '2022-07-02'),
-(23, 1, 'Adihhh', 'Jl. Kolonel Masturi', 'l', '0000-00-00');
+(1, 1, 'Christian Yuda', 'Jl. Dunia Mars', 'l', '0000-00-00'),
+(3511, 1, 'Haryadi Yusuf', 'Jl. Mars', 'l', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -243,7 +251,7 @@ ALTER TABLE `keys`
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
 
 --
 -- Constraints for dumped tables

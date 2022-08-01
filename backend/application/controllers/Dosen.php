@@ -42,7 +42,7 @@ class Dosen extends RestController
     function index_post()
     {
         $data = array(
-            'id_dosen' => $this->post('id_dosen'),
+            'id_dosen' => rand(1000,9999),
             'nama' => $this->post('nama'),
             'tgl_lahir' => $this->post('tgl_lahir'),
 			'alamat' => $this->post('alamat'),
@@ -103,7 +103,7 @@ class Dosen extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Dosen_model->delete_dosen($id_dosen) > 0) {
+        }  elseif ($this->Dosen_model->delete_dosen($id_dosen) > 0) {
             return $this->response(
                 [
                     'status' => true,
@@ -142,7 +142,16 @@ class Dosen extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Dosen_model->update_dosen($data, $id_dosen) > 0) {
+        } elseif (array_search("", $data)){
+			return $this->response(
+				[
+					'status' => $id_dosen,
+					'response_code' => RestController::HTTP_BAD_REQUEST,
+					'message' => 'Data Tidak Boleh Kosong',
+				],
+				RestController::HTTP_BAD_REQUEST
+			);
+		} elseif ($this->Dosen_model->update_dosen($data, $id_dosen) > 0) {
             return $this->response(
                 [
                     'status' => true,

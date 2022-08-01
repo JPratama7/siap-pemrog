@@ -13,9 +13,9 @@ class Mahasiswa extends RestController
     {
         parent::__construct();
         $this->load->model('Mahasiswa_model');
-        $this->methods['mhs_get']['limit'] = 10;
+        $this->methods['index_get']['limit'] = 10;
     }
-    function mhs_get()
+    function index_get()
     {
         $data = $this->Mahasiswa_model->get_mahasiswa_data($this->get('npm'));
         if (empty($data)) {
@@ -38,9 +38,9 @@ class Mahasiswa extends RestController
         );
     }
 
-    function mhs_post()
+    function index_post()
     {
-		$npm = $this->post('npm');
+		$npm = rand(1000,9999);
 		$data = array(
             'npm' => $npm,
             'nama' => $this->post('nama'),
@@ -91,7 +91,7 @@ class Mahasiswa extends RestController
         }
     }
 
-    function mhs_delete()
+    function index_delete()
     {
         $npm = $this->delete('npm');
         //Jika field npm tidak diisi
@@ -127,7 +127,7 @@ class Mahasiswa extends RestController
         }
     }
 
-    function mhs_put()
+    function index_put()
     {
         $npm = $this->put('npm');
         $data = array(
@@ -138,7 +138,6 @@ class Mahasiswa extends RestController
 			'tgl_lahir' => $this->put('tgl_lahir')
 
         );
-        //Jika field npm tidak diisi
         if ($npm == NULL) {
             return $this->response(
                 [
@@ -148,8 +147,16 @@ class Mahasiswa extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-            //Jika data berhasil berubah
-        } elseif ($this->Mahasiswa_model->updateMahasiswa($data, $npm) > 0) {
+        } elseif (array_search("", $data)){
+			return $this->response(
+				[
+					'status' => $npm,
+					'response_code' => RestController::HTTP_BAD_REQUEST,
+					'message' => 'Data Tidak Boleh Kosong',
+				],
+				RestController::HTTP_BAD_REQUEST
+			);
+		} elseif ($this->Mahasiswa_model->updateMahasiswa($data, $npm) > 0) {
             return $this->response(
                 [
                     'status' => true,

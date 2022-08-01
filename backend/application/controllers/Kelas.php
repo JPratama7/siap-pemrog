@@ -41,7 +41,7 @@ class Kelas extends RestController
 
     function index_post()
     {
-		$id_kelas = $this->post('id_kelas');
+		$id_kelas = rand(1000,9999);
 		$data = array(
             'id_kelas' => $id_kelas,
             'jurusan' => $this->post("jurusan"),
