@@ -117,7 +117,7 @@ class Kelas extends RestController
                 [
                     'status' => false,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
-                    'message' => 'Data Mahasiswa Dengan NPM ' . $id_kelas . ' Tidak Ditemukan',
+                    'message' => 'Data Mahasiswa Dengan id kelas ' . $id_kelas . ' Tidak Ditemukan',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );

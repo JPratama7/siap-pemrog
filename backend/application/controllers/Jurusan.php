@@ -44,7 +44,8 @@ class Jurusan extends RestController
 		$id_jurusan = $this->post('id_jurusan');
 		$data = array(
             'id_jurusan' => $id_jurusan,
-            'nama' => $id_jurusan,
+            'nama' => $this->post('nama')
+           
         );
         $duplikasi = $this->Jurusan_model->get_jurusan($id_jurusan);
         if (
@@ -126,7 +127,7 @@ class Jurusan extends RestController
     {
 		$id_jurusan = $this->put('id_jurusan');
 		$data = array(
-			'id_matkul' => $this->put('id_matkul'),
+			'id_jurusan' => $this->put('id_jurusan'),
 			'nama' => $this->put('nama'),
 		);
         if ($id_jurusan == NULL) {

@@ -11,7 +11,7 @@ class Jadwal_model extends CI_Model
     {
         if ($id_jadwal) {
             $this->db->where(self::_primary_key, $id_jadwal);
-            $this->db->limit(1);
+            $this->db->limit(3);
         }
 		$this->db->join('kelas as k', 'k.id_kelas = jadwal.id_kelas');
 		$this->db->join('dosen as d', 'd.id_dosen = jadwal.id_dosen');
@@ -20,8 +20,9 @@ class Jadwal_model extends CI_Model
 
     public function insert_jadwal($data)
     {
-        $this->db->insert($this->_tabel, $data);
-        return $this->db->affected_rows();
+        $this->db->insert(self::_tabel, $data);
+		return $this->db->affected_rows();
+	
     }
     public function update_jadwal($data, $id_jadwal)
     {

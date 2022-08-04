@@ -16,13 +16,13 @@ class Mahasiswa extends CI_Controller
         $data['title'] = "List Data Mahasiswa";
 
         $data['data_mahasiswa'] = $this->Mahasiswa_model->getAll();
-
-        return array(
-            $this->load->view('templates/header', $data),
-            $this->load->view('templates/menu'),
-            $this->load->view('mahasiswa/index'),
-            $this->load->view('templates/footer')
-        );
+		print_r($data);
+//        return array(
+//            $this->load->view('templates/header', $data),
+//            $this->load->view('templates/menu'),
+//            $this->load->view('mahasiswa/index'),
+//            $this->load->view('templates/footer')
+//        );
     }
 
     public function detail($npm)

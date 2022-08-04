@@ -17,7 +17,7 @@ class MK extends RestController
     }
     function index_get()
     {
-        $data = $this->nilai_model->get_nilai($this->get('id_nilai'));
+        $data = $this->MK_model->get_mk($this->get('id_mk'));
         if (empty($data)) {
             return $this->response(
                 array(
@@ -40,14 +40,14 @@ class MK extends RestController
 
     function index_post()
     {
-		$id_nilai = $this->post('id_nilai');
+		$id_mk = $this->post('id_mk');
 		$data = array(
-            'id_nilai' => $id_nilai,
-            'id_matkul' => $this->post('id_matkul'),
-            'npm' => $this->post('npm'),
-			'nilai' => $this->post('nilai')
+            'id_mk' => $id_mk,
+            'nama' => $this->post('nama'),
+            'sks' => $this->post('sks'),
+			'kkm' => $this->post('kkm')
         );
-        $duplikasi = $this->Nilai_model->get_nilai($id_nilai);
+        $duplikasi = $this->MK_model->get_mk($id_mk);
         if (
 			array_search("", $data)
         ) {
@@ -68,7 +68,7 @@ class MK extends RestController
                 ],
                 RestController::HTTP_NOT_ACCEPTABLE
             );
-        } elseif ($this->Nilai_model->insert_nilai($data) > 0) {
+        } elseif ($this->MK_model->insert_mk($data) > 0) {
             return $this->response(
                 [
                     'status' => true,
@@ -91,9 +91,9 @@ class MK extends RestController
 
     function index_delete()
     {
-        $id_nilai = $this->delete('id_nilai');
+        $id_mk = $this->delete('id_mk');
         //Jika field npm tidak diisi
-        if ($id_nilai == NULL) {
+        if ($id_mk == NULL) {
             return $this->response(
                 [
                     'status' => false,
@@ -102,12 +102,12 @@ class MK extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Nilai_model->delete_nilai($id_nilai) > 0) {
+        } elseif ($this->MK_model->delete_mk($id_mk) > 0) {
             return $this->response(
                 [
                     'status' => true,
                     'response_code' => RestController::HTTP_OK,
-                    'message' => 'Data nilai Dengan ID ' . $id_nilai . ' Berhasil Dihapus',
+                    'message' => 'Data nilai Dengan ID ' . $id_mk . ' Berhasil Dihapus',
                 ],
                 RestController::HTTP_OK
             );
@@ -116,7 +116,7 @@ class MK extends RestController
                 [
                     'status' => false,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
-                    'message' => 'Data Nilai Dengan ID ' . $id_nilai . ' Tidak Ditemukan',
+                    'message' => 'Data Nilai Dengan ID ' . $id_mk . ' Tidak Ditemukan',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
@@ -125,27 +125,28 @@ class MK extends RestController
 
     function index_put()
     {
-		$id_nilai = $this->put('id_nilai');
+		$id_mk = $this->put('id_mk');
 		$data = array(
-			'id_matkul' => $this->put('id_matkul'),
-			'npm' => $this->put('npm'),
-			'nilai' => $this->put('nilai')
+            'id_mk' => $id_mk,
+            'nama' => $this->post('nama'),
+            'sks' => $this->post('sks'),
+			'kkm' => $this->post('kkm')
 		);
-        if ($id_nilai == NULL) {
+        if ($id_mk == NULL) {
             return $this->response(
                 [
-                    'status' => $id_nilai,
+                    'status' => $id_mk,
                     'response_code' => RestController::HTTP_BAD_REQUEST,
                     'message' => 'ID Tidak Boleh Kosong',
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Nilai_model->update_nilai($data, $id_nilai) > 0) {
+        } elseif ($this->MK_model->update_mk($data, $id_mk) > 0) {
             return $this->response(
                 [
                     'status' => true,
                     'response_code' => RestController::HTTP_CREATED,
-                    'message' => 'Data nilai Dengan ID ' . $id_nilai . ' Berhasil Diubah',
+                    'message' => 'Data nilai Dengan ID ' . $id_mk . ' Berhasil Diubah',
                 ],
                 RestController::HTTP_CREATED
             );

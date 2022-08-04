@@ -11,7 +11,7 @@ class MK_model extends CI_Model
 	{
 		if ($id_mk) {
 			$this->db->where(self::_primary_key, $id_mk);
-			$this->db->limit(1);
+			$this->db->limit(200);
 		}
 		return $this->db->get(self::_tabel)->result_array();
 	}

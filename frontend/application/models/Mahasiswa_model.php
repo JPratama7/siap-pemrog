@@ -11,7 +11,7 @@ class Mahasiswa_model extends CI_Model
     function __construct()
     {
         $this->_guzzle = new Client([
-            'base_uri' => "http://localhost/tbpem/backend",
+            'base_uri' => "http://localhost/tbpem/backend/mahasiswa",
             'auth' => ['admin', '1234']
         ]);
     }

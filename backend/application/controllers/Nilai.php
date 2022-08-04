@@ -41,13 +41,13 @@ class Nilai extends RestController
 
     function index_post()
     {
-		$npm = $this->post('npm');
+		$id_nilai = $this->post('id_nilai');
 		$data = array(
-            'id_nilai' => $npm,
-            'npm' => $npm,
+            'id_matkul' => $this->post('id_matkul'),
+			'npm' => $this->post('npm'),
 			'nilai' => $this->post('nilai')
         );
-        $duplikasi = $this->Nilai_model->get_nilai($npm);
+        $duplikasi = $this->Nilai_model->get_nilai($id_nilai);
         if (
 			array_search("", $data)
         ) {

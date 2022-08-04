@@ -15,7 +15,7 @@ class Jadwal extends RestController
         $this->load->model('Jadwal_model');
         $this->methods['jadwal_get']['limit'] = 10;
     }
-    function jadwal_get()
+    function index_get()
     {
         $data = $this->Jadwal_model->get_jadwal($this->get('id_jadwal'));
         if (empty($data)) {
@@ -38,7 +38,7 @@ class Jadwal extends RestController
         );
     }
 
-    function jadwal_post()
+    function index_post()
     {
 		$id_jadwal = $this->post('id_jadwal');
 		$data = array(
@@ -47,7 +47,7 @@ class Jadwal extends RestController
             'id_dosen' => $this->post('id_dosen'),
 			'tanggal' => $this->post('tanggal'),
 			'mulai' => $this->post('mulai'),
-			'selesai' => $this->post('selesai'),
+			'selesai' => $this->post('selesai')
         );
         $duplikasi = $this->Jadwal_model->get_jadwal($id_jadwal);
         if (
@@ -91,7 +91,7 @@ class Jadwal extends RestController
         }
     }
 
-    function jadwal_delete()
+    function index_delete()
     {
         $id_jadwal = $this->delete('id_jadwal');
         //Jika field npm tidak diisi
@@ -125,7 +125,7 @@ class Jadwal extends RestController
         }
     }
 
-    function jadwal_put()
+    function index_put()
     {
 		$id_jadwal = $this->put('id_jadwal');
 		$data = array(
@@ -145,7 +145,7 @@ class Jadwal extends RestController
                 ],
                 RestController::HTTP_BAD_REQUEST
             );
-        } elseif ($this->Jadwal_model->delete_jadwal($data, $id_jadwal) > 0) {
+        } elseif ($this->Jadwal_model->update_jadwal($data, $id_jadwal) > 0) {
             return $this->response(
                 [
                     'status' => true,
