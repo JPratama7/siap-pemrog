@@ -25,6 +25,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="id_kelas" class="col-sm-2 col-form-label">ID KELASs</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="id_kelas" name="id_kelas" value=" <?= $data_mahasiswa['id_kelas']; ?>" readonly>
+                            <small class="text-danger">
+                                <?php echo form_error('id_kelas') ?>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="nama" class="col-sm-2 col-formlabel">Nama</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="nama" name="nama" value=" <?= $data_mahasiswa['nama']; ?>">
@@ -39,19 +48,19 @@
                                 Kelamin</legend>
                             <div class="col-sm-10">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="jenis_kelamin" name="jenis_kelamin" value="Laki-laki" <?php if ($data_mahasiswa['jenis_kelamin'] == "Laki-laki") : echo "checked"; endif; ?>>
-                                    <label class="form-check-label" for="jenis_kelamin">
+                                    <input class="form-check-input" type="radio" id="jk" name="jk" value="l" <?php if ($data_mahasiswa['jk'] == "Laki-laki") : echo "checked"; endif; ?>>
+                                    <label class="form-check-label" for="jk">
                                         Laki-laki
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="jenis_kelamin2" name="jenis_kelamin" value="Perempuan" <?php if ($data_mahasiswa['jenis_kelamin'] == "Perempuan") : echo "checked"; endif; ?>>
-                                    <label class="form-check-label" for="jenis_kelamin2">
+                                    <input class="form-check-input" type="radio" id="jk" name="jk" value="p" <?php if ($data_mahasiswa['jk'] == "Perempuan") : echo "checked"; endif; ?>>
+                                    <label class="form-check-label" for="jk">
                                         Perempuan
                                     </label>
                                 </div>
                                 <small class="text-danger">
-                                    <?php echo form_error('jenis_kelamin') ?>
+                                    <?php echo form_error('jk') ?>
                                 </small>
                             </div>
                         </div>
@@ -66,38 +75,11 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Alamat" class="col-sm-2 col-formlabel">Agama</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" id="agama" name="agama">
-                                <option value="Islam" selected disabled>Pilih</option>
-                                <option value="Islam" <?php if ($data_mahasiswa['agama'] == "Islam") : echo "selected"; endif; ?>>Islam</option>
-                                <option value="Protestan" <?php if ($data_mahasiswa['agama'] == "Protestan") : echo "selected"; endif; ?>>Protestan</option>
-                                <option value="Katolik" <?php if ($data_mahasiswa['agama'] == "Katolik") : echo "selected"; endif; ?>>Katolik</option>
-                                <option value="Hindu" <?php if ($data_mahasiswa['agama'] == "Hindu") : echo "selected"; endif; ?>>Hindu</option>
-                                <option value="Buddha" <?php if ($data_mahasiswa['agama'] == "Buddha") : echo "selected"; endif; ?>>Buddha</option>
-                                <option value="Khonghucu" <?php if ($data_mahasiswa['agama'] == "Khonghucu") : echo "selected"; endif; ?>>Khonghucu</option>
-                            </select>
-                            <small class="text-danger">
-                                <?php echo form_error('agama') ?>
-                            </small>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="no_hp" class="col-sm-2 col-form-label">No
-                            Hp</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $data_mahasiswa['no_hp']; ?>">
-                            <small class="text-danger">
-                                <?php echo form_error('no_hp') ?>
-                            </small>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-2 col-formlabel">Email</label>
+                        <label for="email" class="col-sm-2 col-formlabel">Tanggal Lahir</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="email" name="email" value="<?= $data_mahasiswa['email']; ?>">
+                        <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" value=" <?= set_value('tgl_lahir'); ?>">
                             <small class="text-danger">
-                                <?php echo form_error('email') ?>
+                                <?php echo form_error('tgl_lahir') ?>
                             </small>
                         </div>
                     </div>

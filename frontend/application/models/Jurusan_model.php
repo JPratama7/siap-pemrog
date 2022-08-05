@@ -16,21 +16,21 @@ class Jurusan_model extends CI_Model
         ]);
     }
 
-    function getAll()
+    function getAll($apikey)
     {
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
-                'KEY' => 'croot'
+                'KEY' => $apikey
             )
         ))->getBody()->getContents(), True)['data'];
     }
 
-    function getById($npm)
+    function getById($id_jurusan, $apikey)
     {
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
-                'KEY' => 'croot',
-                'npm' => $npm
+                'KEY' => $apikey,
+                'id_jurusan' => $id_jurusan
             )
         ))->getBody()->getContents(), True)['data'][0];
     }
@@ -45,7 +45,7 @@ class Jurusan_model extends CI_Model
         return $result;
     }
 
-    function update($data, $npm)
+    function update($data)
     {
         $response = $this->_guzzle->put('', [
             'http_errors' => false,
@@ -55,13 +55,13 @@ class Jurusan_model extends CI_Model
         return $result;
     }
 
-    function delete($npm)
+    function delete($id_jurusan, $apikey)
     {
         $response = $this->_guzzle->delete('', [
             'form_params' => [
                 'http_errors' => false,
-                'KEY' => 'croot',
-                'npm' => $npm
+                'KEY' => $apikey,
+                'id_jurusan' => $id_jurusan
 
             ]
 

@@ -27,14 +27,13 @@
                         <table class="table table-striped table-bordered tablehover text-sm" id="tableMahasiswa">
                             <thead>
                                 <tr class="table-primary">
-                                    <th>NPM</th>
+                                    <th>NPM </th>
+                                    <th>ID KELAS </th>
                                     <th>NAMA</th>
                                     <th>JENIS KELAMIN</th>
                                     <th>ALAMAT</th>
-                                    <th>AGAMA</th>
-                                    <th>NO HP</th>
-                                    <th>EMAIL</th>
-                                    <th>ACTION</th>
+                                    <th>TANGGAL LAHIR</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,12 +42,11 @@
                                 ?>
                                     <tr>
                                         <td><?= $row['npm'] ?></td>
+                                        <td><?= $row['id_kelas'] ?></td>
                                         <td><?= $row['nama'] ?></td>
-                                        <td><?= $row['jenis_kelamin'] ?></td>
+                                        <td><?= $row['jk'] ?></td>
                                         <td><?= $row['alamat'] ?></td>
-                                        <td><?= $row['agama'] ?></td>
-                                        <td><?= $row['no_hp'] ?></td>
-                                        <td><?= $row['email'] ?></td>
+                                        <td><?= $row['tgl_lahir'] ?></td>
                                         <td>
                                             <a href="<?= base_url('mahasiswa/detail/' . $row['npm']) ?>" class="btn btn-primary btn-sm"><i class="fa fa-info"></i></a>
                                             <a href="<?= base_url('mahasiswa/edit/' . $row['npm']) ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>

@@ -3,33 +3,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mahasiswa extends CI_Controller
 {
+	private $apikey;
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Mahasiswa_model'); //load model mahasiswa
         $this->load->library('form_validation'); //load library
+		if ($this->session->userdata('login') !== 'logged' and empty($this->session->userdata('login'))) {
+			redirect('auth', 'refresh');
+		}
+		$this->apikey = $this->session->userdata('key');
     }
 
     //method pertama yang akan di panggil
     public function index()
     {
+		print_r($this->apikey);
+		print_r(gettype($this->apikey));
         $data['title'] = "List Data Mahasiswa";
-
-        $data['data_mahasiswa'] = $this->Mahasiswa_model->getAll();
-		print_r($data);
-//        return array(
-//            $this->load->view('templates/header', $data),
-//            $this->load->view('templates/menu'),
-//            $this->load->view('mahasiswa/index'),
-//            $this->load->view('templates/footer')
-//        );
+		$data['data_mahasiswa'] = $this->Mahasiswa_model->getAll($this->apikey);
+		return array(
+           $this->load->view('templates/header', $data),
+           $this->load->view('templates/menu'),
+           $this->load->view('mahasiswa/index'),
+           $this->load->view('templates/footer')
+       );
     }
 
     public function detail($npm)
     {
         $data = array(
             'title' => "Detail Data Mahasiswa",
-            'data_mahasiswa' => $this->Mahasiswa_model->getById($npm)
+            'data_mahasiswa' => $this->Mahasiswa_model->getById($npm, $this->apikey)
         );
         return array(
             $this->load->view('templates/header', $data),
@@ -42,14 +47,14 @@ class Mahasiswa extends CI_Controller
     public function add()
     {
         $data["title"] = "Tambah Data Mahasiswa";
-        $this->form_validation->set_rules('npm', 'NPM', 'trim|required|numeric');
+        $this->form_validation->set_rules('id_kelas', 'id_kelas', 'trim|required');
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
+        $this->form_validation->set_rules('jk', 'jk', 'trim|required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-        $this->form_validation->set_rules('agama', 'Agama', 'trim|required');
-        $this->form_validation->set_rules('no_hp', 'No Hp', 'trim|required|numeric|min_length[9]|max_length[13]');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-        if ($this->form_validation->run() == false) {
+        $this->form_validation->set_rules('tgl_lahir', 'tgl_lahir', 'trim|required|date');
+
+        
+               if ($this->form_validation->run() == false) {
             return array(
                 $this->load->view('templates/header', $data),
                 $this->load->view('templates/menu'),
@@ -59,13 +64,14 @@ class Mahasiswa extends CI_Controller
         } else {
             $data = array(
                 "npm" => $this->input->post('npm'),
+                "id_kelas" => $this->input->post('id_kelas'),
                 "nama" => $this->input->post('nama'),
-                "jenis_kelamin" => $this->input->post('jenis_kelamin'),
+                "jk" => $this->input->post('jk'),
                 "alamat" => $this->input->post('alamat'),
-                "agama" => $this->input->post('agama'),
-                "no_hp" => $this->input->post('no_hp'),
-                "email" => $this->input->post('email'),
-                "KEY" => "joseganteng" //sesuaikan dengan API Key kalian
+                "tgl_lahir" => $this->input->post('tgl_lahir'),
+
+
+                "KEY" => $this->apikey //sesuaikan dengan API Key kalian
             );
             $insert = $this->Mahasiswa_model->save($data);
             if ($insert['response_code'] === 201) { //Jika response code yang dihasilkan 201
@@ -85,13 +91,11 @@ class Mahasiswa extends CI_Controller
         $data["title"] = "Edit Data Mahasiswa";
         $data["data_mahasiswa"] = $this->Mahasiswa_model->getById($npm);
         //menerapkan rules validasi pada mahasiswa_model
-        $this->form_validation->set_rules('npm', 'NPM', 'trim|required|numeric');
+        $this->form_validation->set_rules('id_kelas', 'id_kelas', 'trim|required');
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
+        $this->form_validation->set_rules('jk', 'jk', 'trim|required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-        $this->form_validation->set_rules('agama', 'Agama', 'trim|required');
-        $this->form_validation->set_rules('no_hp', 'No Hp', 'trim|required|numeric|min_length[9]|max_length[13]');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('tgl_lahir', 'tgl_lahir', 'trim|required|date');
         //kondisi jika rules tidak terpenuhi (false), maka akan memanggil view saja, sedangkan
         //kondisi sebaliknya jika semua rules terpenuhi, maka akan menjalankan method save pada mahasiswa_model
         if ($this->form_validation->run() == false) {
@@ -104,13 +108,14 @@ class Mahasiswa extends CI_Controller
         } else {
             $data = array(
                 "npm" => $this->input->post('npm'),
+                "id_kelas" => $this->input->post('id_kelas'),
                 "nama" => $this->input->post('nama'),
-                "jenis_kelamin" => $this->input->post('jenis_kelamin'),
+                "jk" => $this->input->post('jk'),
                 "alamat" => $this->input->post('alamat'),
-                "agama" => $this->input->post('agama'),
-                "no_hp" => $this->input->post('no_hp'),
-                "email" => $this->input->post('email'),
-                "KEY" => "joseganteng" //sesuaikan dengan API Key kalian
+                "tgl_lahir" => $this->input->post('tgl_lahir'),
+
+
+                "KEY" => $this->apikey
             );
             $update = $this->Mahasiswa_model->update($data, $npm);
             if ($update['response_code'] === 201) { //Jika response code yang dihasilkan 201
@@ -128,7 +133,7 @@ class Mahasiswa extends CI_Controller
 
     public function delete($npm)
     {
-        $delete = $this->Mahasiswa_model->delete($npm);
+        $delete = $this->Mahasiswa_model->delete($npm, $this->apikey);
         if ($delete['response_code'] === 200) { //Jika response code yang dihasilkan 200
             $this->session->set_flashdata('flash', 'Dihapus');
             redirect('mahasiswa');

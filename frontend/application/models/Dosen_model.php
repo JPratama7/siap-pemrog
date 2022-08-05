@@ -16,20 +16,21 @@ class Dosen_model extends CI_Model
         ]);
     }
 
-    function getAll()
+    function getAll($apikey)
     {
-        return json_decode($this->_guzzle->get('', array(
-            'query' => array(
-                'KEY' => 'croot'
-            )
-        ))->getBody()->getContents(), True)['data'];
+		$contents = $this->_guzzle->get('', array(
+			'query' => array(
+				'KEY' => $apikey
+			)
+		))->getBody()->getContents();
+		return json_decode($contents, True)['data'];
     }
 
-    function getById($npm)
+    function getById($npm, $apikey)
     {
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
-                'KEY' => 'croot',
+                'KEY' => $apikey,
                 'npm' => $npm
             )
         ))->getBody()->getContents(), True)['data'][0];
@@ -55,16 +56,14 @@ class Dosen_model extends CI_Model
         return $result;
     }
 
-    function delete($npm)
+    function delete($npm, $apikey)
     {
         $response = $this->_guzzle->delete('', [
             'form_params' => [
                 'http_errors' => false,
-                'KEY' => 'croot',
+                'KEY' => $apikey,
                 'npm' => $npm
-
             ]
-
         ]);
         $result = json_decode($response->getBody()->getContents(), TRUE);
         return $result;

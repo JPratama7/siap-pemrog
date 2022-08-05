@@ -3,139 +3,139 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Kelas extends CI_Controller
 {
+	private $apikey;
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Kelas_model'); //load model mahasiswa
         $this->load->library('form_validation'); //load library
+		if ($this->session->userdata('login') !== 'logged' and empty($this->session->userdata('login'))) {
+			redirect('auth', 'refresh');
+		}
+		$this->apikey = $this->session->userdata('key');
     }
 
     //method pertama yang akan di panggil
     public function index()
 	{
-        $data['title'] = "List Data Mahasiswa";
+        $data['title'] = "List Data Kelas";
 
-        $data['data_jadwal'] = $this->Kelas_model->getAll();
+        $data['data_kelas'] = $this->Kelas_model->getAll($this->apikey);
 
-		print_r($data);
-//        return array(
-//            $this->load->view('templates/header', $data),
-//            $this->load->view('templates/menu'),
-//            $this->load->view('mahasiswa/index'),
-//            $this->load->view('templates/footer')
-//        );
+       return array(
+           $this->load->view('templates/header', $data),
+           $this->load->view('templates/menu'),
+           $this->load->view('kelas/index'),
+           $this->load->view('templates/footer')
+       );
     }
 
-    public function detail($npm)
+    public function detail($id_kelas)
     {
         $data = array(
-            'title' => "Detail Data Mahasiswa",
-            'data_mahasiswa' => $this->Kelas_model->getById($npm)
+            'title' => "Detail Data Kelas",
+            'data_kelas' => $this->Kelas_model->getById($id_kelas, $this->apikey)
         );
         return array(
             $this->load->view('templates/header', $data),
             $this->load->view('templates/menu'),
-            $this->load->view('mahasiswa/detail'),
+            $this->load->view('kelas/detail'),
             $this->load->view('templates/footer')
         );
     }
 
     public function add()
     {
-        $data["title"] = "Tambah Data Mahasiswa";
-        $this->form_validation->set_rules('npm', 'NPM', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-        $this->form_validation->set_rules('agama', 'Agama', 'trim|required');
-        $this->form_validation->set_rules('no_hp', 'No Hp', 'trim|required|numeric|min_length[9]|max_length[13]');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $data["title"] = "Tambah Data Kelas";
+        $this->form_validation->set_rules('id_kelas', 'id_kelas', 'trim|required|numeric');
+        $this->form_validation->set_rules('id_wali', 'id_wali', 'trim|required');
+        $this->form_validation->set_rules('jurusan', 'jurusan', 'trim|required');
+        $this->form_validation->set_rules('tahunid', 'tahunid', 'trim|required');
+
+
+
         if ($this->form_validation->run() == false) {
-//            return array(
-//                $this->load->view('templates/header', $data),
-//                $this->load->view('templates/menu'),
-//                $this->load->view('mahasiswa/add'),
-//                $this->load->view('templates/footer')
-//            );
+           return array(
+               $this->load->view('templates/header', $data),
+               $this->load->view('templates/menu'),
+               $this->load->view('kelas/add'),
+               $this->load->view('templates/footer')
+           );
         } else {
             $data = array(
-                "npm" => $this->input->post('npm'),
-                "nama" => $this->input->post('nama'),
-                "jenis_kelamin" => $this->input->post('jenis_kelamin'),
-                "alamat" => $this->input->post('alamat'),
-                "agama" => $this->input->post('agama'),
-                "no_hp" => $this->input->post('no_hp'),
-                "email" => $this->input->post('email'),
-                "KEY" => "joseganteng" //sesuaikan dengan API Key kalian
+                "id_kelas" => $this->input->post('id_kelas'),
+                "id_wali" => $this->input->post('id_wali'),
+                "jurusan" => $this->input->post('jurusan'),
+                "tahunid" => $this->input->post('tahunid'),
+                
+                "KEY" => $this->apikey
             );
             $insert = $this->Kelas_model->save($data);
             if ($insert['response_code'] === 201) { //Jika response code yang dihasilkan 201
                 $this->session->set_flashdata('flash', 'Ditambahkan');
-                redirect('mahasiswa');
+                redirect('kelas');
             } elseif ($insert['response_code'] === 400) { //Jika response code yang dihasilkan 400
                 $this->session->set_flashdata('message', 'Data Duplikat');
-                redirect('mahasiswa');
+                redirect('kelas');
             } else { //Jika response code yang dihasilkan selain 201 dan 400
                 $this->session->set_flashdata('message', 'Gagal');
-                redirect('mahasiswa');
+                redirect('kelas');
             }
         }
+        print_r($data);
+
     }
-    public function edit($npm)
+    public function edit($id_kelas)
     {
-        $data["title"] = "Edit Data Mahasiswa";
-        $data["data_mahasiswa"] = $this->Kelas_model->getById($npm);
+        $data["title"] = "Edit Data Kelas";
+        $data["data_kelas"] = $this->Kelas_model->getById($id_kelas);
         //menerapkan rules validasi pada mahasiswa_model
-        $this->form_validation->set_rules('npm', 'NPM', 'trim|required|numeric');
-        $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'trim|required');
-        $this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
-        $this->form_validation->set_rules('agama', 'Agama', 'trim|required');
-        $this->form_validation->set_rules('no_hp', 'No Hp', 'trim|required|numeric|min_length[9]|max_length[13]');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('id_kelas', 'id_kelas', 'trim|required|numeric');
+        $this->form_validation->set_rules('id_wali', 'id_wali', 'trim|required|numeric');
+        $this->form_validation->set_rules('jurusan', 'jurusan', 'trim|required|numeric');
+        $this->form_validation->set_rules('tahunid', 'tahunid', 'trim|required|numeric');
+
         //kondisi jika rules tidak terpenuhi (false), maka akan memanggil view saja, sedangkan
         //kondisi sebaliknya jika semua rules terpenuhi, maka akan menjalankan method save pada mahasiswa_model
         if ($this->form_validation->run() == false) {
 			return array(
 				$this->load->view('templates/header', $data),
 				$this->load->view('templates/menu'),
-				$this->load->view('mahasiswa/edit'),
+				$this->load->view('kelas/edit'),
 				$this->load->view('templates/footer')
 			);
         } else {
             $data = array(
-                "npm" => $this->input->post('npm'),
-                "nama" => $this->input->post('nama'),
-                "jenis_kelamin" => $this->input->post('jenis_kelamin'),
-                "alamat" => $this->input->post('alamat'),
-                "agama" => $this->input->post('agama'),
-                "no_hp" => $this->input->post('no_hp'),
-                "email" => $this->input->post('email'),
-                "KEY" => "joseganteng" //sesuaikan dengan API Key kalian
+                "id_kelas" => $this->input->post('id_kelas'),
+                "id_wali" => $this->input->post('id_wali'),
+                "jurusan" => $this->input->post('jurusan'),
+                "tahunid" => $this->input->post('tahunid'),
+                
+                "KEY" => $this->apikey
             );
-            $update = $this->Kelas_model->update($data, $npm);
+            $update = $this->Kelas_model->update($data, $id_kelas);
             if ($update['response_code'] === 201) { //Jika response code yang dihasilkan 201
                 $this->session->set_flashdata('flash', 'Diubah');
-                redirect('mahasiswa');
+                redirect('kelas');
             } elseif ($update['response_code'] === 400) { //Jika response code yang dihasilkan 400
                 $this->session->set_flashdata('message', 'Gagal');
-                redirect('mahasiswa');
+                redirect('kelas');
             } else {
                 $this->session->set_flashdata('message', 'Gagal!!');
-                redirect('mahasiswa');
+                redirect('kelas');
             }
         }
     }
 
-    public function delete($npm)
+    public function delete($id_kelas)
     {
-        $delete = $this->Kelas_model->delete($npm);
+        $delete = $this->Kelas_model->delete($id_kelas, $this->apikey);
         if ($delete['response_code'] === 200) { //Jika response code yang dihasilkan 200
             $this->session->set_flashdata('flash', 'Dihapus');
-            redirect('mahasiswa');
+            redirect('kelas');
         } else {
             $this->session->set_flashdata('message', 'Gagal');
-            redirect('mahasiswa');
+            redirect('kelas');
         }
     }
 }

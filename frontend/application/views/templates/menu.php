@@ -14,7 +14,22 @@
                 <a class="nav-link" href="<?= base_url('mahasiswa'); ?>">Mahasiswa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="<?= base_url('dosen'); ?>">Dosen</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('jurusan'); ?>">Jurusan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('kelas'); ?>">Kelas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('MK'); ?>">Matkul</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('jadwal'); ?>">Jadwal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('nilai'); ?>">Nilai</a>
             </li>
         </ul>
     </div>

@@ -16,20 +16,20 @@ class Jadwal_model extends CI_Model
         ]);
     }
 
-    function getAll()
+    function getAll($apikey)
     {
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
-                'KEY' => 'croot'
+                'KEY' => $apikey
             )
         ))->getBody()->getContents(), True)['data'];
     }
 
-    function getById($npm)
+    function getById($npm, $apikey)
     {
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
-                'KEY' => 'croot',
+                'KEY' => $apikey,
                 'npm' => $npm
             )
         ))->getBody()->getContents(), True)['data'][0];
@@ -55,12 +55,12 @@ class Jadwal_model extends CI_Model
         return $result;
     }
 
-    function delete($npm)
+    function delete($npm, $apikey)
     {
         $response = $this->_guzzle->delete('', [
             'form_params' => [
                 'http_errors' => false,
-                'KEY' => 'croot',
+                'KEY' => $apikey,
                 'npm' => $npm
 
             ]
