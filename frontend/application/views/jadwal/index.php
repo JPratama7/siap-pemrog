@@ -1,5 +1,5 @@
 <div class="container pt-5">
-    <h3><?= $title ?></h3>
+    <h3>Jadwal</h3>
     <div class="flash-data" data-flashdata="<?= $this->session->flashdata('flash'); ?>"></div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
@@ -33,6 +33,8 @@
                                     <th>Tanggal</th>
                                     <th>Mulai</th>
                                     <th>Selesai</th>
+                                    <th>Aksi</th>
+
                                    
                                 </tr>
                             </thead>

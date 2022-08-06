@@ -30,7 +30,7 @@ class Jadwal_model extends CI_Model
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
                 'KEY' => $apikey,
-                'npm' => $npm
+                'id_jadwal' => $npm
             )
         ))->getBody()->getContents(), True)['data'][0];
     }
@@ -61,7 +61,7 @@ class Jadwal_model extends CI_Model
             'form_params' => [
                 'http_errors' => false,
                 'KEY' => $apikey,
-                'npm' => $npm
+                'id_jadwal' => $npm
 
             ]
 

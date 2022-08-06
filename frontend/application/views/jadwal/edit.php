@@ -36,13 +36,13 @@
                     <div class="form-group row">
                         <label for="id_dosen" class="col-sm-2 col-formlabel">ID Dosen</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama" name="nama" value=" <?= $data_jadwal['id_dosen']; ?>">
+                            <input type="text" class="form-control" id="id_dosen" name="id_dosen" value=" <?= $data_jadwal['id_dosen']; ?>">
                             <small class="text-danger">
                                 <?php echo form_error('id_dosen') ?>
                             </small>
                         </div>
                     </div>
-                   
+
                     <div class="form-group row">
                         <label for="tanggal" class="col-sm-2 col-formlabel">Tanggal </label>
                         <div class="col-sm-8">

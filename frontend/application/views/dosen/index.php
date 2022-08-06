@@ -32,7 +32,8 @@
                                     <th>JENIS KELAMIN</th>
                                     <th>ALAMAT</th>
                                     <th>TANGGAL LAHIR</th>
-                                   
+                                    <th>AKSI</th>
+
                                 </tr>
                             </thead>
                             <tbody>

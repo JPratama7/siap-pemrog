@@ -71,20 +71,20 @@ class MK extends CI_Controller
             $insert = $this->MK_model->save($data);
             if ($insert['response_code'] === 201) { //Jika response code yang dihasilkan 201
                 $this->session->set_flashdata('flash', 'Ditambahkan');
-                redirect('mk');
+                redirect('MK');
             } elseif ($insert['response_code'] === 400) { //Jika response code yang dihasilkan 400
                 $this->session->set_flashdata('message', 'Data Duplikat');
-                redirect('mk');
+                redirect('MK');
             } else { //Jika response code yang dihasilkan selain 201 dan 400
                 $this->session->set_flashdata('message', 'Gagal');
-                redirect('mk');
+                redirect('MK');
             }
         }
     }
     public function edit($id_mk)
     {
         $data["title"] = "Edit Data Matkul";
-        $data["data_mk"] = $this->MK_model->getById($id_mk);
+        $data["data_mk"] = $this->MK_model->getById($id_mk, $this->apikey);
         //menerapkan rules validasi pada mahasiswa_model
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
         $this->form_validation->set_rules('sks', ' sks', 'trim|required');
@@ -112,13 +112,13 @@ class MK extends CI_Controller
             $update = $this->MK_model->update($data, $id_mk);
             if ($update['response_code'] === 201) { //Jika response code yang dihasilkan 201
                 $this->session->set_flashdata('flash', 'Diubah');
-                redirect('mk');
+                redirect('MK');
             } elseif ($update['response_code'] === 400) { //Jika response code yang dihasilkan 400
                 $this->session->set_flashdata('message', 'Gagal');
-                redirect('mk');
+                redirect('MK');
             } else {
                 $this->session->set_flashdata('message', 'Gagal!!');
-                redirect('mk');
+                redirect('MK');
             }
         }
     }
@@ -128,10 +128,10 @@ class MK extends CI_Controller
         $delete = $this->MK_model->delete($id_mk,$this->apikey);
         if ($delete['response_code'] === 200) { //Jika response code yang dihasilkan 200
             $this->session->set_flashdata('flash', 'Dihapus');
-            redirect('mk');
+            redirect('MK');
         } else {
             $this->session->set_flashdata('message', 'Gagal');
-            redirect('mk');
+            redirect('MK');
         }
     }
 }

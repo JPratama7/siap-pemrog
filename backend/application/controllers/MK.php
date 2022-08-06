@@ -128,9 +128,9 @@ class MK extends RestController
 		$id_mk = $this->put('id_mk');
 		$data = array(
             'id_mk' => $id_mk,
-            'nama' => $this->post('nama'),
-            'sks' => $this->post('sks'),
-			'kkm' => $this->post('kkm')
+            'nama' => $this->put('nama'),
+            'sks' => $this->put('sks'),
+			'kkm' => $this->put('kkm')
 		);
         if ($id_mk == NULL) {
             return $this->response(

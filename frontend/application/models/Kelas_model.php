@@ -30,7 +30,7 @@ class Kelas_model extends CI_Model
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
                 'KEY' => $apikey,
-                'npm' => $id_kelas
+                'id_kelas' => $id_kelas
             )
         ))->getBody()->getContents(), True)['data'][0];
     }

@@ -30,7 +30,7 @@ class MK_model extends CI_Model
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
                 'KEY' => $apikey,
-                'npm' => $id_mk
+                'id_mk' => $id_mk
             )
         ))->getBody()->getContents(), True)['data'][0];
     }

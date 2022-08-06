@@ -12,7 +12,7 @@
 
             <div class="card">
                 <div class="card-header bg-info">
-                    Detail Data Mahasiswa
+                    Detail Data Dosen
                 </div>
                 <div class="card-body">
                     <h5 class="card-title"><b>ID :</b><br><?= $data_dosen['id_dosen']; ?></h5>

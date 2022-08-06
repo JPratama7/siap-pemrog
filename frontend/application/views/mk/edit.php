@@ -3,7 +3,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb ">
             <li class="breadcrumb-item"><a>Matakuiah</a></li>
-            <li class="breadcrumb-item "><a href="<?= base_url('mk'); ?>">List Data</a></li>
+            <li class="breadcrumb-item "><a href="<?= base_url('MK'); ?>">List Data</a></li>
             <li class="breadcrumb-item active" aria-current="page">Edit Data</li>
         </ol>
     </nav>

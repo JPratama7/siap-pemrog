@@ -11,13 +11,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
         </script>
     <?php } ?>
     <title>REST APIKEY</title>
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/style.css">
 </head>
 
 <style>
     body {
         font-family: sans-serif;
-        background: #d5f0f3;
+        background-color: #cccccc; /* Used if the image is unavailable */
+  height: 500px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  background-image: url("https://bandungbarat.net/wp-content/uploads/2019/07/kampus-poltekpos.jpg")
     }
 
     h1 {
@@ -32,9 +38,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     .kotak_login {
         width: 350px;
-        background: white;
+        background: whitesmoke;
         margin: 80px auto;
-        padding: 30px 20px;
+        padding: 35px 20px;
     }
 
     label {
@@ -58,6 +64,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
         border-radius: 3px;
         padding: 10px 20px;
     }
+    .tombol_generate {
+        background: #46de4b;
+        color: white;
+        font-size: 11pt;
+        width: 100%;
+        border: none;
+        border-radius: 3px;
+        padding: 10px 20px;
+    }
 
     .link {
         color: #232323;
@@ -66,9 +81,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     }
 </style>
 
-<body>
 
-    <h1>Login <br /></h1>
+<body>
 
     <div class="kotak_login">
         <p class="tulisan_login">Silahkan login</p>
@@ -84,7 +98,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <br />
             <br />
         </form>
-        <a href="<?php echo base_url('auth/daftar') ?>"><button class="tombol_login">Daftar</button></a>
+        <a href="<?php echo base_url('auth/daftar') ?>"><button class="tombol_login">Daftar</button></a><br><br>
+ </div>
+
 
     </div>
 

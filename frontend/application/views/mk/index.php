@@ -9,7 +9,7 @@
     </nav>
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-primary mb-2" href="<?= base_url('mk/add'); ?>">Tambah Data</a>
+            <a class="btn btn-primary mb-2" href="<?= base_url('MK/add'); ?>">Tambah Data</a>
             <div mb-2>
                 <!-- Menampilkan flash data (pesan saat data error)-->
                 <?php if ($this->session->flashdata('message')) : ?>
@@ -31,6 +31,8 @@
                                     <th>Nama Matakuliah </th>
                                     <th>SKS</th>
                                     <th>KKM</th>
+                                    <th>AKSI</th>
+
                                     
                                    
                                 </tr>
@@ -45,9 +47,9 @@
                                         <td><?= $row['sks'] ?></td>
                                         <td><?= $row['kkm'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('mk/detail/' . $row['id_mk']) ?>" class="btn btn-primary btn-sm"><i class="fa fa-info"></i></a>
-                                            <a href="<?= base_url('mk/edit/' . $row['id_mk']) ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                                            <a href="<?= base_url('mk/delete/' . $row['id_mk']) ?>" class="btn btn-danger btn-sm item-delete tombol-hapus"><i class="fa fa-trash"></i></a>
+                                            <a href="<?= base_url('MK/detail/' . $row['id_mk']) ?>" class="btn btn-primary btn-sm"><i class="fa fa-info"></i></a>
+                                            <a href="<?= base_url('MK/edit/' . $row['id_mk']) ?>" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="<?= base_url('MK/delete/' . $row['id_mk']) ?>" class="btn btn-danger btn-sm item-delete tombol-hapus"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

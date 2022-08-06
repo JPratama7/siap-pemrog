@@ -63,10 +63,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <body>
 
-    <h1>Login <br /></h1>
+    <h1>Daftar <br /></h1>
 
     <div class="kotak_login">
-        <p class="tulisan_login">Silahkan login</p>
+        <p class="tulisan_login">Silahkan Daftar</p>
 
         <form action="<?php echo base_url('auth/insertdaftar') ?>" method="POST">
             <label>Username</label>

@@ -26,12 +26,12 @@ class Dosen_model extends CI_Model
 		return json_decode($contents, True)['data'];
     }
 
-    function getById($npm, $apikey)
+    function getById($id_dosen, $apikey)
     {
         return json_decode($this->_guzzle->get('', array(
             'query' => array(
                 'KEY' => $apikey,
-                'npm' => $npm
+                'id_dosen' => $id_dosen
             )
         ))->getBody()->getContents(), True)['data'][0];
     }
@@ -46,7 +46,7 @@ class Dosen_model extends CI_Model
         return $result;
     }
 
-    function update($data, $npm)
+    function update($data)
     {
         $response = $this->_guzzle->put('', [
             'http_errors' => false,
@@ -56,13 +56,13 @@ class Dosen_model extends CI_Model
         return $result;
     }
 
-    function delete($npm, $apikey)
+    function delete($id_dosen, $apikey)
     {
         $response = $this->_guzzle->delete('', [
             'form_params' => [
                 'http_errors' => false,
                 'KEY' => $apikey,
-                'npm' => $npm
+                'id_dosen' => $id_dosen
             ]
         ]);
         $result = json_decode($response->getBody()->getContents(), TRUE);

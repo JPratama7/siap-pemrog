@@ -27,7 +27,7 @@
                     <div class="form-group row">
                         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama" name="nama" value=" <?= $data_dosen['nama']; ?>" readonly>
+                            <input type="text" class="form-control" id="nama" name="nama" value=" <?= $data_dosen['nama']; ?>" >
                             <small class="text-danger">
                                 <?php echo form_error('nama') ?>
                             </small>

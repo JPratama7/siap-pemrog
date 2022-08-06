@@ -47,10 +47,9 @@ class Jadwal extends CI_Controller
     public function add()
     {
         $data["title"] = "Tambah Data Jadwal";
-        $this->form_validation->set_rules('id_jadwal', 'id_jadwal', 'trim|required|numeric');
-        $this->form_validation->set_rules('id_kelas', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('id_dosen', 'Jenis Kelamin', 'trim|required');
-        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required|date');
+        $this->form_validation->set_rules('id_kelas', 'Nama', 'trim|required|numeric');
+        $this->form_validation->set_rules('id_dosen', 'id_dosen', 'trim|required');
+        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
         $this->form_validation->set_rules('mulai', 'mulai', 'trim|required');
         $this->form_validation->set_rules('selesai', 'selesai', 'trim|required');
 
@@ -72,26 +71,26 @@ class Jadwal extends CI_Controller
                 "KEY" => $this->apikey
             );
             $insert = $this->Jadwal_model->save($data);
-            if ($insert['response_code'] === 201) { //Jika response code yang dihasilkan 201
-                $this->session->set_flashdata('flash', 'Ditambahkan');
-                redirect('jadwal');
-            } elseif ($insert['response_code'] === 400) { //Jika response code yang dihasilkan 400
-                $this->session->set_flashdata('message', 'Data Duplikat');
-                redirect('jadwal');
-            } else { //Jika response code yang dihasilkan selain 201 dan 400
-                $this->session->set_flashdata('message', 'Gagal');
-                redirect('jadwal');
-            }
+             if ($insert['response_code'] === 201) { //Jika response code yang dihasilkan 201
+                 $this->session->set_flashdata('flash', 'Ditambahkan');
+                 redirect('jadwal');
+             } elseif ($insert['response_code'] === 400) { //Jika response code yang dihasilkan 400
+                 $this->session->set_flashdata('message', 'Data Duplikat');
+                 redirect('jadwal');
+             } else { //Jika response code yang dihasilkan selain 201 dan 400
+                 $this->session->set_flashdata('message', 'Gagal');
+                 redirect('jadwal');
+             }
         }
     }
     public function edit($id_jadwal)
     {
         $data["title"] = "Edit Data Jadwal";
-        $data["data_jadwal"] = $this->Jadwal_model->getById($id_jadwal);
+        $data["data_jadwal"] = $this->Jadwal_model->getById($id_jadwal, $this->apikey);
         //menerapkan rules validasi pada mahasiswa_model
         $this->form_validation->set_rules('id_jadwal', 'id_jadwal', 'trim|required|numeric');
-        $this->form_validation->set_rules('id_kelas', 'Nama', 'trim|required');
-        $this->form_validation->set_rules('id_dosen', 'Jenis Kelamin', 'trim|required');
+        $this->form_validation->set_rules('id_kelas', 'Nama', 'trim|required|numeric');
+        $this->form_validation->set_rules('id_dosen', 'id_dosen', 'trim|required|numeric');
         $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required|date');
         $this->form_validation->set_rules('mulai', 'mulai', 'trim|required');
         $this->form_validation->set_rules('selesai', 'selesai', 'trim|required');
@@ -130,8 +129,12 @@ class Jadwal extends CI_Controller
 
     public function delete($id_jadwal)
     {
-        $delete = $this->Jadwal_model->delete($id_jadwal, $this->apikey);
-        if ($delete['response_code'] === 200) { //Jika response code yang dihasilkan 200
+		try {
+			$delete = $this->Jadwal_model->delete($id_jadwal, $this->apikey);
+		}catch (Exception $e){
+			print_r("croot ".$e);
+		}
+		if ($delete['response_code'] === 200) { //Jika response code yang dihasilkan 200
             $this->session->set_flashdata('flash', 'Dihapus');
             redirect('jadwal');
         } else {

@@ -27,7 +27,7 @@
                         <table class="table table-striped table-bordered tablehover text-sm" id="">
                             <thead>
                                 <tr class="table-primary">
-                                    <th>ID Dosen</th>
+                                    <th>ID Jurusan</th>
                                     <th>NAMA</th>
                                     <th>Aksi</th>
 

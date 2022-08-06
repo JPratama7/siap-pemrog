@@ -79,7 +79,7 @@ class Jurusan extends CI_Controller
     public function edit($id_jurusan)
     {
         $data["title"] = "Edit Data Jurusan";
-        $data["data_jurusan"] = $this->Jurusan_model->getById($id_jurusan);
+        $data["data_jurusan"] = $this->Jurusan_model->getById($id_jurusan, $this->apikey);
         //menerapkan rules validasi pada mahasiswa_model
         $this->form_validation->set_rules('id_jurusan', 'id_jurusan', 'trim|required|numeric');
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');

@@ -79,10 +79,10 @@ class Dosen extends CI_Controller
             }
         }
     }
-    public function edit($npm)
+    public function edit($id_dosen)
     {
         $data["title"] = "Edit Data dosen";
-        $data["data_dosen"] = $this->Dosen_model->getById($npm);
+        $data["data_dosen"] = $this->Dosen_model->getById($id_dosen,$this->apikey);
         //menerapkan rules validasi pada mahasiswa_model
         $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
         $this->form_validation->set_rules('jk', 'Jenis Kelamin', 'trim|required');
@@ -99,22 +99,23 @@ class Dosen extends CI_Controller
 			);
         } else {
             $data = array(
+                "id_dosen" => $this->input->post('id_dosen'),
                 "nama" => $this->input->post('nama'),
                 "jk" => $this->input->post('jk'),
                 "alamat" => $this->input->post('alamat'),
                 "tgl_lahir" => $this->input->post('tgl_lahir'),
                 "KEY" => $this->apikey
             );
-            $update = $this->Dosen_model->update($data, $npm);
+            $update = $this->Dosen_model->update($data, $id_dosen);
             if ($update['response_code'] === 201) { //Jika response code yang dihasilkan 201
                 $this->session->set_flashdata('flash', 'Diubah');
-                redirect('mahasiswa');
+                redirect('dosen');
             } elseif ($update['response_code'] === 400) { //Jika response code yang dihasilkan 400
                 $this->session->set_flashdata('message', 'Gagal');
-                redirect('mahasiswa');
+                redirect('dosen');
             } else {
                 $this->session->set_flashdata('message', 'Gagal!!');
-                redirect('mahasiswa');
+                redirect('dosen');
             }
         }
     }
