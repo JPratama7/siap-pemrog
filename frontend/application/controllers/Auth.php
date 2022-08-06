@@ -7,6 +7,7 @@ class Auth extends CI_Controller
 		parent::__construct();
 		$this->load->model("Auth_model");
 	}
+
 	function index()
 	{
 		$this->load->view('auth/login');
@@ -17,16 +18,15 @@ class Auth extends CI_Controller
 		$_SESSION = array();
 		redirect('auth/index');
 	}
+
 	function login()
 	{
 		$username = htmlspecialchars($this->input->post('username', TRUE), ENT_QUOTES);
 		$password = htmlspecialchars($this->input->post('password', TRUE), ENT_QUOTES);
-
 		$user = $this->Auth_model->get_login($username, $password);
 		if (!empty($user)) {
 			$user_data = array(
 				'username' => $user['username'],
-				'key' => $user['apikey'],
 				'login' => 'logged',
 			);
 			$this->session->set_userdata($user_data);
@@ -46,7 +46,7 @@ class Auth extends CI_Controller
 	function generate()
 	{
 		$uname = $this->session->userdata('username');
-		if(empty($uname)){
+		if (empty($uname)) {
 			redirect('auth/index');
 		}
 		$ukey = $this->Auth_model->getkeyuser($uname);

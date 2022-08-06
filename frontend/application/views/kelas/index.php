@@ -31,6 +31,8 @@
                                     <th>Id Wali</th>
                                     <th>Jurusan</th>
                                     <th>Tahun </th>
+                                    <th>Aksi </th>
+
                                    
                                 </tr>
                             </thead>

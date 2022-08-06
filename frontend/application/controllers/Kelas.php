@@ -20,9 +20,15 @@ class Kelas extends CI_Controller
 	function index()
 	{
 		$data['title'] = "List Data Kelas";
-
+		if ($this->apikey == null) {
+			return array(
+				$this->load->view('templates/header', $data),
+				$this->load->view('templates/menu'),
+				$this->load->view('invalid'),
+				$this->load->view('templates/footer')
+			);
+		}
 		$data['data_kelas'] = $this->Kelas_model->getAll($this->apikey);
-
 		return array(
 			$this->load->view('templates/header', $data),
 			$this->load->view('templates/menu'),

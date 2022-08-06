@@ -11,9 +11,10 @@
 		<div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
+
 					<form action="<?= base_url('kelas/add'); ?>" method="post">
 						<div class="form-group row">
-							<label for="id_kelas" class="col-sm-2 col-form-label">ID</label>
+							<label for="id_kelas" class="col-sm-2 col-form-label">ID Kelas</label>
 							<div class="col-sm-5">
 								<input type="text" class="form-control" id="id_kelas" name="id_kelas"
 									   value="<?= set_value('id_kelas'); ?>">
@@ -22,9 +23,10 @@
 								</small>
 							</div>
 						</div>
+
 						<div class="form-group row">
-							<label for="id_wali" class="col-sm-2 col-form-label">ID wali</label>
-							<div class="col-sm-10">
+							<label for="id_wali" class="col-sm-2 col-form-label">Wali</label>
+							<div class="col-sm-5">
 								<input type="text" class="form-control" id="id_wali" name="id_wali"
 									   value="<?= set_value('id_wali'); ?>">
 								<small class="text-danger">
@@ -33,34 +35,38 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="id_jurusan" class="col-sm-2 col-form-label">jurusan</label>
+							<label for="jurusan" class="col-sm-2 col-form-label">jurusan</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="id_jurusan" name="id_jurusan"
-									   value="<?= set_value('id_jurusan'); ?>">
+								<input type="text" class="form-control" id="jurusan" name="jurusan"
+									   value=" <?= set_value('jurusan'); ?>">
 								<small class="text-danger">
-									<?php echo form_error('id_jurusan') ?>
+									<?php echo form_error('jurusan') ?>
 								</small>
 							</div>
 						</div>
+
+
 						<div class="form-group row">
 							<label for="tahunid" class="col-sm-2 col-form-label">Tahunid</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="tahunid" name="tahunid"
-									   value="<?= set_value('tahunid'); ?>">
+									   value=" <?= set_value('tahunid'); ?>">
 								<small class="text-danger">
 									<?php echo form_error('tahunid') ?>
 								</small>
 							</div>
 						</div>
-						<div class="form-group row">
-							<div class="col-sm-10 offset-md-2">
-								<button type="submit" class="btn btn-primary">Simpan</button>
-								<a class="btn btn-secondary" href="javascript:history.back()">Kembali</a>
-							</div>
-						</div>
-					</form>
+
+
 				</div>
 
+				<div class="form-group row">
+					<div class="col-sm-10 offset-md-2">
+						<button type="submit" class="btn btn-primary">Simpan</button>
+						<a class="btn btn-secondary" href="javascript:history.back()">Kembali</a>
+					</div>
+				</div>
+				</form>
 			</div>
 		</div>
 	</div>

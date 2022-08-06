@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2022 at 04:43 AM
+-- Generation Time: Aug 06, 2022 at 10:11 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -131,7 +131,9 @@ INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_privat
 (1, 1, 'croot', 1, 1, 0, NULL, 1123123),
 (23, 99, 'adi', 1, 1, 0, NULL, 213124124),
 (24, 9350, 'EqQMG', 1, 1, 0, NULL, 1),
-(25, 7577, 'fjjopszt', 1, 1, 0, NULL, 1);
+(25, 7577, 'fjjopszt', 1, 1, 0, NULL, 1),
+(26, 964, 'ospgxldh', 1, 1, 0, NULL, 1),
+(27, 512, 'xvgkkpoj', 1, 1, 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -216,7 +218,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `username`, `apikey`, `password`) VALUES
 (1, '123', 'croot', '123'),
-(2, '124', 'fjjopszt', '124');
+(2, '124', 'fjjopszt', '124'),
+(3, '126', 'ospgxldh', '126'),
+(4, 'aaa', 'xvgkkpoj', 'aaa');
 
 --
 -- Indexes for dumped tables
@@ -237,11 +241,18 @@ ALTER TABLE `jadwal`
   ADD KEY `kelas` (`id_kelas`);
 
 --
+-- Indexes for table `jurusan`
+--
+ALTER TABLE `jurusan`
+  ADD PRIMARY KEY (`id_jurusan`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
-  ADD KEY `kelas_wali` (`id_wali`);
+  ADD KEY `kelas_wali` (`id_wali`),
+  ADD KEY `kelas_jurusan` (`jurusan`);
 
 --
 -- Indexes for table `keys`
@@ -284,7 +295,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `keys`
 --
 ALTER TABLE `keys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `nilai`
@@ -296,7 +307,7 @@ ALTER TABLE `nilai`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -313,6 +324,7 @@ ALTER TABLE `jadwal`
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
+  ADD CONSTRAINT `kelas_jurusan` FOREIGN KEY (`jurusan`) REFERENCES `jurusan` (`id_jurusan`),
   ADD CONSTRAINT `kelas_wali` FOREIGN KEY (`id_wali`) REFERENCES `dosen` (`id_dosen`);
 
 --

@@ -31,6 +31,8 @@
                                     <th>ID Matkul</th>
                                     <th>NPM</th>
                                     <th>Nilai</th>
+                                    <th>Aksi</th>
+
                                  
                                    
                                 </tr>

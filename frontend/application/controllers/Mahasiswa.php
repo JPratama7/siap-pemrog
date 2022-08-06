@@ -20,6 +20,14 @@ class Mahasiswa extends CI_Controller
 	public function index()
 	{
 		$data['title'] = "List Data Mahasiswa";
+		if ($this->apikey == null) {
+			return array(
+				$this->load->view('templates/header', $data),
+				$this->load->view('templates/menu'),
+				$this->load->view('invalid'),
+				$this->load->view('templates/footer')
+			);
+		}
 		$data['data_mahasiswa'] = $this->Mahasiswa_model->getAll($this->apikey);
 		return array(
 			$this->load->view('templates/header', $data),
