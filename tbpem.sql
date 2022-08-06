@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 01, 2022 at 03:54 PM
+-- Generation Time: Aug 06, 2022 at 04:43 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -82,7 +82,8 @@ CREATE TABLE `jurusan` (
 --
 
 INSERT INTO `jurusan` (`id_jurusan`, `nama`) VALUES
-(1, 'Teknik Informatika');
+(1, 'Teknik Informatika'),
+(99, 'teknik TERBANG');
 
 -- --------------------------------------------------------
 
@@ -115,11 +116,11 @@ CREATE TABLE `keys` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `key` varchar(40) NOT NULL,
-  `level` int(2) NOT NULL,
-  `ignore_limits` tinyint(1) NOT NULL DEFAULT 0,
+  `level` int(2) NOT NULL DEFAULT 1,
+  `ignore_limits` tinyint(1) NOT NULL DEFAULT 1,
   `is_private_key` tinyint(1) NOT NULL DEFAULT 0,
   `ip_addresses` text DEFAULT NULL,
-  `date_created` int(11) NOT NULL
+  `date_created` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -127,7 +128,10 @@ CREATE TABLE `keys` (
 --
 
 INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(1, 1, 'croot', 1, 1, 0, NULL, 1123123);
+(1, 1, 'croot', 1, 1, 0, NULL, 1123123),
+(23, 99, 'adi', 1, 1, 0, NULL, 213124124),
+(24, 9350, 'EqQMG', 1, 1, 0, NULL, 1),
+(25, 7577, 'fjjopszt', 1, 1, 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -149,8 +153,9 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`npm`, `id_kelas`, `nama`, `alamat`, `jk`, `tgl_lahir`) VALUES
-(1, 1, 'Christian Yuda', 'Jl. Dunia Mars', 'l', '0000-00-00'),
-(3511, 1, 'Haryadi Yusuf', 'Jl. Mars', 'l', '0000-00-00');
+(1, 1, 'Christian Yuda', 'Jl. Dunia Mars', 'l', '2022-08-03'),
+(2137, 1, 'Jose Tampan', 'JL. MANGSAP', 'l', '2019-08-06'),
+(3511, 1, 'Haryadi Yusuf', 'Jl. Mars', 'l', '2011-12-01');
 
 -- --------------------------------------------------------
 
@@ -184,6 +189,34 @@ CREATE TABLE `nilai` (
   `npm` int(11) NOT NULL,
   `nilai` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Dumping data for table `nilai`
+--
+
+INSERT INTO `nilai` (`id_nilai`, `id_matkul`, `npm`, `nilai`) VALUES
+(231, 1, 3511, 88);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(20) COLLATE utf16_bin NOT NULL,
+  `apikey` varchar(20) COLLATE utf16_bin NOT NULL,
+  `password` varchar(20) COLLATE utf16_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `apikey`, `password`) VALUES
+(1, '123', 'croot', '123'),
+(2, '124', 'fjjopszt', '124');
 
 --
 -- Indexes for dumped tables
@@ -238,6 +271,12 @@ ALTER TABLE `nilai`
   ADD KEY `nilai_mk` (`id_matkul`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -245,13 +284,19 @@ ALTER TABLE `nilai`
 -- AUTO_INCREMENT for table `keys`
 --
 ALTER TABLE `keys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `nilai`
 --
 ALTER TABLE `nilai`
   MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
